@@ -22,13 +22,21 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev
+          sudo apt install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo6 cmake libffi-dev libssl-dev wget
           
       - name: Accept Android SDK licenses
         run: |
           mkdir -p ~/.android
           touch ~/.android/repositories.cfg
-          yes | sdkmanager --licenses > /dev/null 2>&1 || true
+          # Устанавливаем command line tools
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip commandlinetools-linux-*.zip -d ~/android-cmdline
+          mkdir -p ~/android-sdk/cmdline-tools
+          mv ~/android-cmdline/cmdline-tools ~/android-sdk/cmdline-tools/latest
+          export PATH=$PATH:~/android-sdk/cmdline-tools/latest/bin
+          # Принимаем все лицензии
+          yes | sdkmanager --licenses --sdk_root=~/android-sdk
+          yes | sdkmanager "build-tools;37.0.0-rc1" --sdk_root=~/android-sdk
           
       - name: Install Python dependencies
         run: |
