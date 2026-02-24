@@ -19,10 +19,9 @@ log_level = 2
 api = 33
 minapi = 21
 ndk = 25b
-android.build_tools_version = 34.0.0
-android.accept_sdk_license = True
 
 android.permissions = BLUETOOTH_SCAN, BLUETOOTH_CONNECT, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION
 android.extra_permissions = android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
 
+android.accept_sdk_license = True
 p4a.branch = develop
