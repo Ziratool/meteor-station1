@@ -84,7 +84,6 @@ jobs:
       - name: Debug buildozer config
         run: |
           echo "PWD: $(pwd)"
-          echo "Files:"
           ls -la
           echo "buildozer.spec exists?"
           test -f buildozer.spec && echo "YES" || (echo "NO" && exit 1)
@@ -107,7 +106,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: meteor-station-apk
-          path: bin/*.apk
           name: meteor-station-apk
           path: bin/*.apk
