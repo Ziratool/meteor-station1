@@ -85,8 +85,25 @@ jobs:
         run: |
           rm -rf .buildozer
 
-      - name: Build APK
+            - name: Debug buildozer config
         run: |
+          echo "PWD: $(pwd)"
+          echo "Files:"
+          ls -la
+          echo "buildozer.spec exists?"
+          test -f buildozer.spec && echo "YES" || (echo "NO" && exit 1)
+          echo "---- buildozer.spec ----"
+          sed -n '1,260p' buildozer.spec
+
+      - name: Remove project .buildozer cache
+        run: |
+          rm -rf .buildozer
+
+      - name: Build APK (force API)
+        run: |
+          # Если buildozer вдруг игнорирует spec, форсим параметры через переменные
+          export ANDROIDAPI=33
+          export ANDROIDMINAPI=21
           buildozer -v android debug
 
       - name: Upload APK
