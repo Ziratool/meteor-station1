@@ -6,6 +6,9 @@ package.domain = org.yourname
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,txt,json
 
+android.accept_sdk_licence=True
+android.skip_update=False
+
 version = 0.1
 #version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
