@@ -35,6 +35,4 @@ android.extra_permissions = android.permission.BLUETOOTH_SCAN, android.permissio
 android.gradle_dependencies = 'com.android.support:support-annotations:28.0.0'
 android.add_src =
 
-android.add_src =
-
 p4a.branch = develop
