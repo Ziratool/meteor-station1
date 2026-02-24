@@ -19,29 +19,38 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev wget
+      
+      - name: Install Python dependencies
+        run: |
           pip install --upgrade pip
           pip install cython virtualenv
           pip install buildozer
       
-      - name: Accept all licenses automatically
+      - name: Setup Android SDK in buildozer path
         run: |
-          # Устанавливаем cmdline-tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+          # Создаём нужную структуру папок
+          mkdir -p ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest
+          mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+          
+          # Скачиваем command line tools
+          wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
           unzip -q commandlinetools-linux-*.zip
-          mkdir -p ~/.android/cmdline-tools
-          mv cmdline-tools ~/.android/cmdline-tools/latest
-          export PATH=$PATH:~/.android/cmdline-tools/latest/bin
+          mv cmdline-tools/* ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/
           
-          # Принимаем все лицензии
-          yes | sdkmanager --licenses --sdk_root=~/.android || true
+          # Создаём старую папку tools/bin для совместимости с buildozer
+          mkdir -p ~/.buildozer/android/platform/android-sdk/tools/bin
+          ln -sf ~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager ~/.buildozer/android/platform/android-sdk/tools/bin/sdkmanager
           
-          # Устанавливаем нужные компоненты
-          yes | sdkmanager "platform-tools" "platforms;android-33" "build-tools;35.0.0" --sdk_root=~/.android
+          # Добавляем в PATH
+          export PATH=$PATH:~/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin
           
-          # Копируем в папку buildozer
-          mkdir -p ~/.buildozer/android/platform/android-sdk
-          cp -r ~/.android/* ~/.buildozer/android/platform/android-sdk/
-          echo "✅ Лицензии приняты, SDK готов"
+          # Принимаем все лицензии через настоящий sdkmanager
+          yes | sdkmanager --licenses --sdk_root=~/.buildozer/android/platform/android-sdk || true
+          
+          # Устанавливаем platform-tools
+          yes | sdkmanager "platform-tools" "platforms;android-33" --sdk_root=~/.buildozer/android/platform/android-sdk || true
+          
+          echo "✅ SDK готов в нужной папке"
       
       - name: Build APK
         run: |
