@@ -7,7 +7,7 @@ source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,txt,json
 
 version = 0.1
-version.regex = __version__ = ['"](.*)['"]
+#version.regex = __version__ = ['"](.*)['"]
 version.filename = %(source.dir)s/main.py
 
 requirements = python3,kivy,pyjnius,android
