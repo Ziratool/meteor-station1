@@ -12,17 +12,14 @@ requirements = python3,kivy,pyjnius,android
 orientation = portrait
 fullscreen = 0
 
-[buildozer]
-log_level = 2
-
-[android]
+# Android settings
 android.api = 33
 android.minapi = 21
 android.ndk = 25b
+android.ndk_api = 21
 android.build_tools_version = 34.0.0
-android.accept_sdk_license = True
-android.sdkmanager_accept_license = True
 
 android.permissions = BLUETOOTH_SCAN, BLUETOOTH_CONNECT, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION
-android.extra_permissions = android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
 
+[buildozer]
+log_level = 2
