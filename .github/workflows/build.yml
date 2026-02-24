@@ -74,6 +74,17 @@ jobs:
 
           echo "Android SDK ready at $SDK_ROOT"
 
+      - name: Show buildozer.spec used by runner
+        run: |
+          echo "PWD: $(pwd)"
+          ls -la
+          echo "---- buildozer.spec ----"
+          sed -n '1,240p' buildozer.spec
+
+      - name: Remove project .buildozer cache
+        run: |
+          rm -rf .buildozer
+
       - name: Build APK
         run: |
           buildozer -v android debug
