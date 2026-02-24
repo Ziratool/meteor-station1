@@ -19,6 +19,8 @@ android.ndk = 25b
 android.ndk_api = 21
 android.build_tools_version = 34.0.0
 
+android.archs = arm64-v8a
+
 android.permissions = BLUETOOTH_SCAN, BLUETOOTH_CONNECT, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION
 
 [buildozer]
