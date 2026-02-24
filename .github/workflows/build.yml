@@ -26,17 +26,14 @@ jobs:
           
       - name: Accept Android SDK licenses
         run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          # Устанавливаем command line tools
-          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-          unzip commandlinetools-linux-*.zip -d ~/android-cmdline
-          mkdir -p ~/android-sdk/cmdline-tools
-          mv ~/android-cmdline/cmdline-tools ~/android-sdk/cmdline-tools/latest
-          export PATH=$PATH:~/android-sdk/cmdline-tools/latest/bin
-          # Принимаем все лицензии
-          yes | sdkmanager --licenses --sdk_root=~/android-sdk
-          yes | sdkmanager "build-tools;37.0.0-rc1" --sdk_root=~/android-sdk
+          # Создаём структуру папок
+          mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
+          # Принимаем все лицензии Android SDK
+          echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
+          # Для build-tools
+          mkdir -p ~/.buildozer/android/platform/android-sdk/build-tools
           
       - name: Install Python dependencies
         run: |
