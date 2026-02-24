@@ -32,6 +32,8 @@ minapi = 21
 ndk = 25b
 gradle_dependencies = 'com.android.support:support-annotations:28.0.0'
 
+android.build_tools_version=34.0.0
+
 android.permissions = BLUETOOTH_SCAN, BLUETOOTH_CONNECT, BLUETOOTH_ADMIN, ACCESS_FINE_LOCATION
 android.extra_permissions = android.permission.BLUETOOTH_SCAN, android.permission.BLUETOOTH_CONNECT
 
